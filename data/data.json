@@ -1,0 +1,10 @@
+{
+	"g" : "2",
+	"p" : "1019",
+	"n_cli" : 2,
+	"accuracy" : 0.1, 
+	"probIncorrect" : 0.01,
+	"n_prog" : 100,
+	"samples" : null,
+	"shares" : [ ]
+}
