@@ -36,7 +36,7 @@ function solve_discrete_alg(g,y,P){
 			params = new_xab(X,A,B,g,y,p,P);
 			X = params.x; A = params.a ; B = params.b
 		
-//			console.log( "%d  %d %d %d  %d %d %d", i, x, a, b, X, A, B );
+			console.log( "%d  %d %d %d  %d %d %d", i, x, a, b, X, A, B );
 			if ( x.equals(X) ) {
 				//console.log("Number of steps:",i);
 				break;

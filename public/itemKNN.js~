@@ -378,7 +378,7 @@ function argSort(toSort) {
 //dot product between feed and the top N elements of weights
 function dotNN(feed,weights,N){ 
 	var result = 0; 
-	var idx = argSort(weights).sortIndices;
+	var idx = argSort(weights).sortIndices.slice(0,N);
 	for (var i=0; i < N; i++) 
 		result += feed[idx[i]]*weights[idx[i]]; 
 	return result 
