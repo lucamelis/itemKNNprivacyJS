@@ -53,12 +53,9 @@ function solve_discrete_alg(g,y,P){
 
 exports.solve_discrete_alg = solve_discrete_alg;
 
-//var g = new BigInteger('2');
+// var g = new BigInteger('2');
 
-//var P = new BigInteger('8589935363');
-//var y = g.modPow(new BigInteger('12000000'),P);
+// var P = new BigInteger('8589935363');
+// var y = g.modPow(new BigInteger('12000000'),P);
 
-//console.log(solve_discrete_alg(g,y,P))
-
-
-
+// console.log(solve_discrete_alg(g,y,P))

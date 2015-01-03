@@ -113,6 +113,7 @@ io.sockets.on("connection", function (socket) {
 				"probIncorrect" : params.probIncorrect,
 				"samples" : params.samples
 				};
+				
 			console.log("--Decryption phase..")
 			//var $l = 1;
 			var start = new Date().getTime();
@@ -123,6 +124,7 @@ io.sockets.on("connection", function (socket) {
 			var end = new Date().getTime();
 			console.log("\n--Whole sequence decrypted! in",(end - start),'milliseconds')
 			
+			//sending back decrypted sketch
 			sockets.forEach(function(sock){
 				io.sockets.connected[sock].emit("model",{"params": sketch_params ,"data" : aggregate});
 				console.log("--Decrypted data sent to the client",sock);
