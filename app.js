@@ -1,7 +1,21 @@
+var ffi = require('ffi')
+var ref = require('ref')
+var ArrayType = require('ref-array');
+
+var charPtr = ref.refType('char');
+var StringArray = ArrayType('string');
+
+
+var libDiscreteLogC = ffi.Library('./libDiscreteLogC', {
+  'array_discrete_pollard_rho': [ StringArray, [ StringArray, 'int', 'string' ,'string','string']  ],
+  'random_safe_prime' : ['string', [ 'int' ] ],
+  'generator_group_modP' : ['string', [ 'string','int' ] ],
+  'random_uniform_int' : ['string' , [ 'string' ] ]
+} )
+
 var express = require('express');
-//var sjcl = require("./sjcl.js");
 var BigInteger = require("./index.js");
-var dec = require("./BNdecryption.js");
+//var dec = require("./BNdecryption.js");
 
 var app = express();
 var server = require('http').createServer(app);
@@ -24,29 +38,33 @@ Array.prototype.vectorMultMod = function(other,p) {
     return this;
     };
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * (max + 1)) ;
-}
-
-function setup(file_path){
+function setup( file_path ){
 
 	var params = JSON.parse( fs.readFileSync(file_path) );
 	
-	params.g = new BigInteger(params.g);
-	params.p = new BigInteger(params.p);
-	params.samples = params.n_prog*params.n_prog/2;
-	var intP = parseInt( params.p.toString( ) );
+	params.p = new BigInteger(libDiscreteLogC.random_safe_prime(params.n_bits));
+	//params.g = new BigInteger(libDiscreteLogC.generator_group_modP( params.p.toString(), Math.ceil(Math.sqrt(params.n_bits)) ) );
+	
+	params.g = new BigInteger("2");
+	params.p = new BigInteger("1019");
+ 	
+ 	params.samples = params.n_prog * params.n_prog / 2;
+
+ 	var bound = params.p.divide( new BigInteger( params.n_cli.toString() ) ).toString();
+ 	
 	//generating shares 
 	for (var i= 0; i < (params.n_cli - 1) ; i++){
-		var k = getRandomInt( Math.round( intP / params.n_cli ) );   
+		var k = new BigInteger(libDiscreteLogC.random_uniform_int( bound ) );   
 		params.shares.push(k)
 	}
-	var sum = 0;
-	params.shares.forEach(function(val) {
-	  sum += val;
-	})
-	params.shares.push(intP - sum)
+
+	var sum = BigInteger.ZERO;
+	params.shares.forEach(function(val) {  sum = sum.add(val); })
 	
+	//sum of shares equals to p-1 
+	params.shares.push( params.p.subtract(sum).subtract(BigInteger.ONE) )
+	
+	//console.log(params.shares.toString());
 	return params;
 }
 
@@ -81,13 +99,14 @@ io.sockets.on("connection", function (socket) {
 	    
 	    sockets.push(socket.id);
 	    
-	    var client_params = {"g" : params.g.toString(),
+	    var client_params = {
+	    	"g" : params.g.toString(),
 			"p" : params.p.toString(),
 			"share" : clients[data.username].share.toString(),
 			"accuracy" : params.accuracy, 
 			"probIncorrect" : params.probIncorrect,
 			"samples" : params.samples
-			};
+		};
 	    
 	    //send the share
 	    console.log("\t Added user id",socket.id)
@@ -100,13 +119,14 @@ io.sockets.on("connection", function (socket) {
     socket.on('user-view', function(data){
 	    j++
 	    console.log("--User view received from",socket.id)
-	    if (!aggregate.table.length){
+	    if ( !aggregate.table.length ){
 	    	aggregate = data.sketch;
-	    	aggregate.table = aggregate.table.map(function(a) { return new BigInteger(a);});
+	    	aggregate.table = aggregate.table.map(function(a) { return new BigInteger(a); } );
 	    	}
 	    else{    	
-		aggregate.table = aggregate.table.vectorMultMod(data.sketch.table,params.p);
+			aggregate.table = aggregate.table.vectorMultMod(data.sketch.table,params.p);
 		}
+
 		if ( j == params.n_cli ){
 			var sketch_params = 
 		    		{"accuracy" : params.accuracy, 
@@ -117,10 +137,20 @@ io.sockets.on("connection", function (socket) {
 			console.log("--Decryption phase..")
 			//var $l = 1;
 			var start = new Date().getTime();
-			aggregate.table = aggregate.table.map(function(a){
-				//process.stdout.write("\t" + $l++ + "-th element decrypted\r");
-				return dec.solve_discrete_alg(params.g,a,params.p); 
-				})
+			
+			//gmp wrapper
+			var one = BigInteger.ONE;
+			var order = params.p.subtract(one);
+			var input = aggregate.table.map(function(a){ return a.toString()});
+			var length = input.length;
+			var output = libDiscreteLogC.array_discrete_pollard_rho(input,aggregate.table.length,params.g.toString(),order.toString(),params.p.toString())
+			output.length = length;
+			aggregate.table = output.toArray();
+
+			// aggregate.table = aggregate.table.map(function(a){
+			// 	//process.stdout.write("\t" + $l++ + "-th element decrypted\r");
+			// 	return dec.solve_discrete_alg(params.g,a,params.p); 
+			// 	})
 			var end = new Date().getTime();
 			console.log("\n--Whole sequence decrypted! in",(end - start),'milliseconds')
 			
@@ -142,7 +172,6 @@ io.sockets.on("connection", function (socket) {
 	  			break;
 	  		}
 	  	}	
-	  })
+	})
 	
 });
-

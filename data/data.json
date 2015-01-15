@@ -1,7 +1,8 @@
 
 {
-	"g" : "2",
-	"p" : "8589935363", 
+	"g" : null,
+	"p" : null,
+	"n_bits" : 16, 
 	"n_cli" : 2,
 	"accuracy" : 0.1, 
 	"probIncorrect" : 0.01,

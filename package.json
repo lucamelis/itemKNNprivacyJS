@@ -8,7 +8,10 @@
     "dependencies": {
         "socket.io": "latest",
         "express": "latest",
-        "k-hash": "latest"
+        "k-hash": "latest",
+        "ffi" : "latest",
+        "ref" : "latest",
+        "ref-array" : "latest"
     },
     "author": "Luca Melis"
 }

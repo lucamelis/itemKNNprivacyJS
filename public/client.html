@@ -1,6 +1,5 @@
 <html>
 <head>
- <script type="text/javascript" src="sjcl.js"></script>
  <script type="text/javascript" src="bundle.js"></script>
  <script type="text/javascript" src="itemKNN.js"></script> 
  <script type="text/javascript" src="sjbn.js"></script>
@@ -38,41 +37,38 @@
 		var params = { };
 		var aggregated_sketch = {};
         	
-        		params = message.data
-        		console.log(params)
-        		// sketch generation
-			var createCountMinSketch = require('count-min').createCountMinSketch;
-			var sketch = createCountMinSketch(parseFloat(params.accuracy), parseFloat(params.probIncorrect), parseInt(params.samples));
-			for (var i = 0; i < params.samples; i++ )
-				sketch.update(i, sample_geom(0.3)%2);
+        params = message.data
+        // sketch generation
+		var createCountMinSketch = require('count-min').createCountMinSketch;
+		var sketch = createCountMinSketch(parseFloat(params.accuracy), parseFloat(params.probIncorrect), parseInt(params.samples));
+		for (var i = 0; i < params.samples; i++ )
+			sketch.update(i, sample_geom(0.3)%2);
 			
-			var json_sketch = sketch.toJSON();
+		var json_sketch = sketch.toJSON();
 			
-			console.log(json_sketch);
+		console.log(json_sketch);
 			
 			//sketch encryption
-			console.log("--Encryption phase")
-			json_sketch.table = encrypt(json_sketch.table, new BigInteger(params.g), new BigInteger(params.share), new BigInteger(params.p) );
+		console.log("--Encryption phase")
+		json_sketch.table = encrypt(json_sketch.table, new BigInteger(params.g), new BigInteger(params.share), new BigInteger(params.p) );
 			
-			console.log("--Data encrypted")
+		console.log("--Data encrypted")
 			//sketch
-			socket.emit("user-view",{"username" : d.toISOString(), "sketch" : json_sketch});
-			console.log("--Data sent to the aggregator")
-        
-             
-        });
+		socket.emit("user-view",{"username" : d.toISOString(), "sketch" : json_sketch});
+		console.log("--Data sent to the aggregator")
+	});
          	
-        socket.on("model",function(message){
+    socket.on("model",function(message){
         
-        	var params = message.params;
-        	var createCountMinSketch = require('count-min').createCountMinSketch;
-        	var aggregated_sketch = createCountMinSketch(params.accuracy, params.probIncorrect, params.samples);
+        var params = message.params;
+        var createCountMinSketch = require('count-min').createCountMinSketch;
+        var aggregated_sketch = createCountMinSketch(params.accuracy, params.probIncorrect, params.samples);
         	
-        	aggregated_sketch.fromJSON(message.data);
-        	console.log("--Aggregate data received");
+        aggregated_sketch.fromJSON(message.data);
+        console.log("--Aggregate data received");
         	
-        	var n = Math.sqrt(params.samples*2);
-        	var simMatrix  = require('itemKNN').NNmodelBuilding(aggregated_sketch, n )
+        var n = Math.sqrt(params.samples*2);
+        var simMatrix  = require('itemKNN').NNmodelBuilding(aggregated_sketch, n )
 
         	// new observation
 		var feedback = [ ];
@@ -83,12 +79,12 @@
 		    }
 		}
 		
-        	var topNN = 10;
-        	var topKNN = require('itemKNN').NNprediction(feedback,simMatrix,topNN);
+        var topNN = 10;
+        var topKNN = require('itemKNN').NNprediction(feedback,simMatrix,topNN);
 		
 		console.log("Top",topNN,"recommendation items:",topKNN);
         		
-        });
+	});
          
 	//case of too many connections
 	socket.on("too-many-connections",function(){console.log("too many connections"); return 1;});
