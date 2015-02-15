@@ -1,17 +1,18 @@
 {
-    "name": "Privacy-preserving recommendation system ",
+    "name": "Privacy-preserving recommender system ",
     "version": "1.0.0",
     "scripts": {
         "start": "node app.js"
     },
-    "description": "Secret sharing recommendation system",
+    "description": "Secret sharing recommender system",
     "dependencies": {
-        "socket.io": "latest",
+        "socket.io": "1.0",
         "express": "latest",
         "k-hash": "latest",
         "ffi" : "latest",
         "ref" : "latest",
-        "ref-array" : "latest"
+        "ref-array" : "latest",
+        "mocha" : "latest"
     },
     "author": "Luca Melis"
 }

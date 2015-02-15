@@ -28,6 +28,16 @@ void random_uniform_mpz(mpz_t* res, mpz_t n){
 	gmp_randclear(r_state);
 }
 
+EXPORT char * urandom_read(int byte_count){
+	FILE *fp;
+	char * data = (char*) malloc(byte_count * sizeof(char));
+	printf("%d\n",(int)sizeof(data) );
+	fp = fopen("/dev/urandom", "r");
+	fread(data, 1, sizeof(data)	, fp);
+	fclose(fp);
+	return data;
+}
+
  void new_xab( mpz_t* x, mpz_t* a, mpz_t* b,mpz_t ord, mpz_t P, mpz_t g, mpz_t beta) {
 	mpz_t tmp;
 	mpz_init(tmp);
