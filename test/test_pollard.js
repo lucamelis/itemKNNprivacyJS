@@ -1,7 +1,7 @@
 var assert = require('assert'); 
 
 
-var BigInteger = require("./index.js");
+var BigInteger = require("../index.js");
 var ffi = require('ffi')
 var ref = require('ref')
 var ArrayType = require('ref-array');
