@@ -1,0 +1,6 @@
+{	
+	"n_cli" : 2,
+	"accuracy" : 0.1, 
+	"probIncorrect" : 0.01,
+	"n_prog" : 700
+}

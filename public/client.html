@@ -2,7 +2,7 @@
 <head>
  <script type="text/javascript" src="bundle.js"></script>
  <script type="text/javascript" src="itemKNN.js"></script> 
- <script type="text/javascript" src="sjbn.js"></script>
+ <script type="text/javascript" src="jsbn.js"></script>
 
  <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -24,7 +24,7 @@
 			
   	//connection
   	try{
-		var socket = io.connect('http://localhost:3002');
+		var socket = io.connect('http://localhost:3000');
 	}
 	catch(err) { alert("Server not found")}
 			
@@ -82,7 +82,7 @@
         var topNN = 10;
         var topKNN = require('itemKNN').NNprediction(feedback,simMatrix,topNN);
 		
-		console.log("Top",topNN,"recommendation items:",topKNN);
+		console.log("Top",topNN,"recommended items:",topKNN);
         		
 	});
          
