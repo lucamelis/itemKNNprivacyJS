@@ -14,7 +14,7 @@
 	var StringArray = ArrayType('string');
 
 
-	var libDiscreteLogC = ffi.Library('./libDiscreteLogC', {
+	var libDiscreteLogC = ffi.Library('./lib/libDiscreteLogC', {
 	  'urandom_uniform' : ['string' , [ 'string' ] ],
 	} )		
 	
@@ -52,7 +52,6 @@
 		kl_array[i] = sub_array;
 	};
 	
-	console.log(kl_array);
 	describe("Shared keys", function() {
 		
 		it("should sum up to zero accross all " + N + " users", function() {

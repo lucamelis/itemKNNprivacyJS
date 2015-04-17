@@ -1,0 +1,8 @@
+--Average error for 100 clients: (epsilon):  0.323123147283
+--Std deviation error for 100 clients: (epsilon):  0.00609065068794
+--Average error for 1000 clients: (epsilon):  0.0485431340177
+--Std deviation error for 1000 clients: (epsilon):  0.00190971897221
+--Average error for 10000 clients: (epsilon):  0.009902538914
+--Std deviation error for 10000 clients: (epsilon):  0.000844044022964
+--Average error for 100000 clients: (epsilon):  0.00512161603404
+--Std deviation error for 100000 clients: (epsilon):  0.00148204431728

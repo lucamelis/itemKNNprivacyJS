@@ -32,8 +32,6 @@
 
 <body style="background-color: rgb(241, 242, 246);">
  	
- 	<div id="header">
-	
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid"><div class="navbar-header">
 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button><a class="navbar-brand" href="#"><img style="max-width:100px; margin-top: -7px;"src="icon.png">PressApp</a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -47,26 +45,25 @@
 
 	<div id="container"></div>
 
-
 <script >
 
 
 //window.onload = function( ) {
 "use strict"  
-//$('#container').append("<h2 style=color:red> Mobile Web App </h2>");
 
 var movies = [
-	"Once Upon a Time in America",
-	"Lost Highways",
-	"Full Metal Jacket",
 	"2001: A Space Odyssey",
-	"Pulp Fiction",
+	"Full Metal Jacket",
+	"Barry Lyndon",
 	"A Clockwork Orange",
 	"Blade Runner",
-	"Barry Lyndon",
+	"The Big Lebowski",
 	"Citizen Kane",
-	"The Big Lebowski"
-]
+	"Once Upon a Time in America",
+	"Lost Highways",
+	"Pulp Fiction"
+];
+
 var start;
 var perf = { } ; 
 
@@ -139,7 +136,7 @@ var countsketch = require('count-min');
   
   	var d = new Date();
 			
-	var socket = io.connect('http://localhost:3002',{'force new connection': true});
+	var socket = io.connect('http://10.0.2.2:3002',{'force new connection': true});
 	//var socket = io.connect('http://localhost:3002',{'force new connection': true});
 			
 	function onModel(message) {
@@ -234,7 +231,7 @@ var countsketch = require('count-min');
 		$('#container').append("<div class='well'><span class='glyphicon glyphicon-ok-sign' style='color:green' aria-hidden='true'></span>&nbsp;Data encrypted in <em>"+ perf.encryption_time +"</em> ms</div>");
 
 		socket.emit("user-view",{"username" : d.toISOString(), "sketch" : json_sketch});
-		$('#container').append("<div class='well'><span class='glyphicon glyphicon-circle-arrow-up' style='color:green' aria-hidden='true'></span>&nbsp;Data sent to the aggregator</div>");
+		$('#container').append("<div class='well'><span class='glyphicon glyphicon-cloud-upload' style='color:green' aria-hidden='true'></span>&nbsp;Data sent to the aggregator</div>");
 	}
 
 	//init: registration

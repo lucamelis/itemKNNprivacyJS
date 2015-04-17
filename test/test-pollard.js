@@ -1,7 +1,7 @@
 	var assert = require('assert'); 
 
 
-	var BigInteger = require("../index.js");
+	var BigInteger = require("jsbn");
 	var ffi = require('ffi')
 	var ref = require('ref')
 	var ArrayType = require('ref-array');
@@ -10,7 +10,7 @@
 	var StringArray = ArrayType('string');
 
 
-	var libDiscreteLogC = ffi.Library('./libDiscreteLogC', {
+	var libDiscreteLogC = ffi.Library('./lib/libDiscreteLogC', {
 	  'array_discrete_pollard_rho': [ StringArray, [ StringArray, 'int', 'string' ,'string','string']  ],
 	  'random_safe_prime' : ['string', [ 'int' ] ],
 	  'generator_group_modP' : ['string', [ 'string','int' ] ],
