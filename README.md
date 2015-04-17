@@ -3,27 +3,26 @@ ItemKNNprivacyJS
 
 # install
 
-With [npm](http://npmjs.org) do:
+With [**npm**](http://npmjs.org) do:
 ``` bash
 $ npm install
 ```
 from the project directory.
 
 To compile `libDiscreteLogC.so` on Linux/Solaris/etc.:
-
 ``` bash
-$ gcc -Wall -shared -fPIC -fopenmp logDiscreteRho.c -o libDiscreteLogC.so -lgmp -L/usr/local/lib
+$ gcc -std=c99 -Wall -shared -fPIC -fopenmp logDiscreteRho.c -o libDiscreteLogC.so -lgmp -lcrypto -L/usr/local/lib
 ```
 
-You need the [**gmp**](https://gmplib.org/) and [**openmp**](http://openmp.org/wp/) libraries properly installed on your system.
+You need the [**gmp**](https://gmplib.org/) and [**openmp**](http://openmp.org/wp/) libraries installed on your system.
 
 # usage
 
-To start the web sever application with  [**nodejs**](http://nodejs.org/)
+To start the web sever application with  [**nodejs**](http://nodejs.org/):
 ``` bash
 $ node app.js
 ```
-
+To start the browser client go [here](http://localhost:3002/client.html)
 #test 
 
 To test the discrete log module in `libDiscreteLogC.so` do:

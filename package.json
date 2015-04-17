@@ -1,18 +1,24 @@
 {
-    "name": "Privacy-preserving recommender system ",
-    "version": "1.0.0",
-    "scripts": {
-        "start": "node app.js"
-    },
-    "description": "Secret sharing recommender system",
-    "dependencies": {
-        "socket.io": "1.0",
-        "express": "latest",
-        "k-hash": "latest",
-        "ffi" : "latest",
-        "ref" : "latest",
-        "ref-array" : "latest",
-        "mocha" : "latest"
-    },
-    "author": "Luca Melis"
+  "name": "itemKNNprivacyJS",
+  "private": "true",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node --max-old-space-size=8192 app.js",
+    "test": "mocha test/test*"	
+  },
+  "description": "Secret sharing recommender system",
+  "dependencies": {
+    "elliptic": "3.0.3",
+    "express": "latest",
+    "ffi": "latest",
+    "bn.js": "latest",
+    "k-hash": "latest",
+    "mocha": "latest",
+    "ref": "latest",
+    "ref-array": "latest",
+    "socket.io": "1.0",
+    "browserify": "latest",
+    "plotly": "latest"		
+  },
+  "author": "Luca Melis"
 }
