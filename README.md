@@ -9,8 +9,9 @@ $ npm install
 ```
 from the project directory.
 
-To compile `libDiscreteLogC.so` on Linux/Solaris/etc.:
+To compile `lib/libDiscreteLogC.so` on Linux/Solaris/etc.:
 ``` bash
+$ cd lib
 $ gcc -std=c99 -Wall -shared -fPIC -fopenmp logDiscreteRho.c -o libDiscreteLogC.so -lgmp -lcrypto -L/usr/local/lib
 ```
 
