@@ -1,0 +1,25 @@
+	div {
+	    text-align: left;
+	    margin-right: 2px;
+	    margin-left: 2px; 
+	}
+
+	body { 
+	    padding-top: 65px;
+	}
+
+	tr {
+    	text-align: left; 
+	}
+	
+	.well {
+		margin-bottom: 5px;
+	}
+	
+	* {
+	    -webkit-touch-callout:none;
+	    -webkit-user-select:none;
+	    -moz-user-select:none;
+	    -ms-user-select:none;
+	    user-select:none;
+	}
