@@ -21,7 +21,7 @@ You need the [**gmp**](https://gmplib.org/) and [**openmp**](http://openmp.org/w
 
 To start the web sever application with  [**nodejs**](http://nodejs.org/):
 ``` bash
-$ node app.js
+$ npm start
 ```
 To start the browser client go [here](http://localhost:3002/client.html)
 #test 
