@@ -223,13 +223,21 @@ io.sockets.on("connection", function(socket) {
 			"samples" : params.samples
 		};
 
-		sockets.forEach(function(sock){
-			io.sockets.connected[sock].emit("model",{"params": sketch_params ,"data" : aggregate});
-			console.log("--Decrypted data sent to the client",sock);
-		})
+		
+		io.sockets.emit("model",{"params": sketch_params ,"data" : aggregate});
+
+		setTimeout(function() { 
+			console.log("Killing the server..");
+			process.exit(0);
+		}, 5000);		
+
+//		sockets.forEach(function(sock){
+//			io.sockets.connected[sock].emit("model",{"params": sketch_params ,"data" : aggregate});
+//			console.log("--Decrypted data sent to the client",sock);
+//		})
 
 		//kill the web-server process
-		process.exit(0);	
+
 	}
 
 	//add listeners
