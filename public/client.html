@@ -168,7 +168,7 @@ var countsketch = require('count-min');
 
         //create table
 		$('#container').append("<div class='panel panel-primary'>"+
-		"<div class='panel-heading'> <span class='glyphicon glyphicon-star' style='color:#F6BB42' aria-hidden='true'></span>&nbsp;Top "+topNN+" recommended items</div>"+
+		"<div class='panel-heading'> <span class='glyphicon glyphicon-star' style='color:#F6BB42' aria-hidden='true'></span>&nbsp;<strong>Top "+topNN+" recommended items</strong></div>"+
 		"<table class='table'><thead><tr><th>#</th><th>Item</th></tr></thead><tbody>"+
 		topKNN.map(function(el,idx){
 			return "<tr><th>" +(idx+1)+"</th><th>" + movies[idx]+"</th></tr>";}).join(" ") +
@@ -221,7 +221,7 @@ var countsketch = require('count-min');
 		$('#container').append("<div class='well'><span class='glyphicon glyphicon-ok-sign' style='color:green' aria-hidden='true'></span>&nbsp;Data encrypted in <em>"+ perf.encryption_time +"</em> ms</div>");
 
 		socket.emit("user-view",{"username" : d.toISOString(), "sketch" : json_sketch});
-		$('#container').append("<div class='well'><span class='glyphicon glyphicon-circle-arrow-up' style='color:green' aria-hidden='true'></span>&nbsp;Data sent to the aggregator</div>");
+		$('#container').append("<div class='well'><span class='glyphicon glyphicon-cloud-upload' style='color:green' aria-hidden='true'></span>&nbsp;Data sent to the aggregator</div>");
 	}
 
 	//init: registration

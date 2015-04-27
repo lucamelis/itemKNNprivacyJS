@@ -1,2 +1,7 @@
 test/dlogs.txt
+lib/lib/libDiscreteLogC.so
 chrome_ext/
+test/plot_n_clients.js
+test/plot_n_items.js
+test/plot_overhead.js
+node_modules/
