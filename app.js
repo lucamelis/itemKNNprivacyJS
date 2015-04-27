@@ -21,7 +21,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 
-var port = 8080;
+var port = 3002;
 
 server.listen(port, function () {
   console.log('--Server listening at port %d..', port);
